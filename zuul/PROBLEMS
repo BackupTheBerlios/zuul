@@ -1,0 +1,9 @@
+1. IP in der IP-TEL Tabelle unterscheidet sich von der im Messwertsender abgespeicherten.
+   Mmdiald wird die Nummer anwählen, eine Hostroute auf die Remote IP setzen. Das nächste
+   Paket geht dann wieder an das Proxyinterface, weil die Hostroute nicht für die lokal
+   verwendete IP gilt. Mmdiald wird versuchen die gleiche Messstelle nochmals anzurufen.
+   Nach 5 sekunden wird der pppd Timeout beim Messwertsender zuschlagen und die Verbindung
+   kappen. Das zweite Modem bekommt nun die Möglichkeit den Messwertsender anzurufen und
+   tut das. Und das ganze geht so weiter.... (und wenn sie nicht gestorben sind...)
+
+

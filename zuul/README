@@ -1,0 +1,41 @@
+ZUUL the Gatekeeper daemon
+
+The project named ZUUL (The Gatekeeper) is intended to operate on a stack of modems. When an IP packet arrives and the target is known by the phonetable it connects one of the modems to the resolved phonenumber. This is done by pppd and chat. ZUUL leaves most of the configuration with the used programs. ZUUL is partly based on diald. ZUUL is especially interesting for people who need to call a large number of stations (with different phone numbers) over modem.
+
+
+What does ZUUL do?
+
+The job of ZUUL is making a connection with modem from a stack of modems to an other modem. Every time an IP-packet arrives ZUUL checks for an unused modem. If a free modem is availible it starts the pppd and gives control to it. All work is done on IP level so there is no need for user intervention. If no modem is available the packet is dropped.
+The phone number is determinated on base of the IP-address. Therefor ZUUL searches a file
+specified in the ZUUL.config for the address and corresponding number.
+
+
+Who needs ZUUL?
+
+ZUUL was developed to gather data from several modem operated monitoring stations. We connect from a base station to the monitoring stations. We needed some intelligent resource management because there are more stations then modems in the base stations stack. After investigating several other programs we found most of them where way to complicated for our work. We took some functionality from diald and developed our own daemon.
+
+
+Why IP based services?
+
+The idea was to use commands like scp, ftp without special equipment or services. With IP you can do: "scp station1:/file ./file" without noticing you are not directly connected. With the managed line control you add the ability to do things like: 
+for HOSTS in A B C D ; do; scp $HOSTS:/file ./file.$HOSTS ; done;
+
+
+Authentication
+
+There is no authentication. ZUUL gets a packet starts the pppd; thats it. 
+
+
+Configuration:
+
+The configuration is very basic for now. There is a zuul.conf that allows some config. And a table for resolving IP addresses to phone numbers.
+
+
+Documentation
+
+use the source, luke.
+
+
+What has pppd to do?
+
+Everything. You must have a working ppp connection. ZUUL starts pppd with the phnone number an IP address it should connect.
